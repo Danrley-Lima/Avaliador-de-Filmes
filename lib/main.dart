@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:und1_mobile/screens/bottom_navigation_bar_teste.dart';
+import 'package:und1_mobile/screens/nao_gostei.dart';
 import 'package:und1_mobile/styles.dart';
-
-import 'screens/teste.dart';
 
 void main() {
   runApp(const MainApp());
@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
       ).copyWith(
         colorScheme: lightColorScheme,
       ),
-      home: const Teste(),
+      home: const NaoGostei(),
     );
   }
 }
