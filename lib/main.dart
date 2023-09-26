@@ -43,10 +43,14 @@ class _MainAppState extends State<MainApp> {
   _toggleCurtido(Producao producao) {
     setState(() {
       if (_foiCurtido(producao)) {
+        debugPrint(curtidos.length.toString());
         curtidos.remove(producao);
+        debugPrint(curtidos.length.toString());
+        naoAvaliados.add(producao);
       }
-      curtidos.add(producao);
       if (_foiNaoCurtido(producao)) naoCurtidos.remove(producao);
+      curtidos.add(producao);
+      naoAvaliados.remove(producao);
     });
   }
 
@@ -54,9 +58,11 @@ class _MainAppState extends State<MainApp> {
     setState(() {
       if (_foiNaoCurtido(producao)) {
         naoCurtidos.remove(producao);
+        naoAvaliados.add(producao);
       }
       naoCurtidos.add(producao);
       if (_foiCurtido(producao)) curtidos.remove(producao);
+      naoAvaliados.remove(producao);
     });
   }
 
@@ -118,7 +124,12 @@ class _MainAppState extends State<MainApp> {
               toggleCurtido: _toggleCurtido,
               toggleNaoCurtido: _toggleNaoCurtido,
             ),
-        AppRoutes.DETALHES_SERIE: (context) => DetalhesSerie()
+        AppRoutes.DETALHES_SERIE: (context) => DetalhesSerie(
+              foiCurtido: _foiCurtido,
+              foiNaoCurtido: _foiNaoCurtido,
+              toggleCurtido: _toggleCurtido,
+              toggleNaoCurtido: _toggleNaoCurtido,
+            ),
       },
     );
   }

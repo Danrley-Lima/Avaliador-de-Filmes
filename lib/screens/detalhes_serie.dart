@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:und1_mobile/models/producao.dart';
 import '../mocks/mock_avaliacao.dart';
 import '../models/avaliacao.dart';
 import '../models/serie.dart';
 
 class DetalhesSerie extends StatelessWidget {
+  final Function(Producao) foiCurtido;
+  final Function(Producao) foiNaoCurtido;
+  final Function(Producao) toggleNaoCurtido;
+  final Function(Producao) toggleCurtido;
+
+  const DetalhesSerie({
+    super.key,
+    required this.foiCurtido,
+    required this.foiNaoCurtido,
+    required this.toggleCurtido,
+    required this.toggleNaoCurtido,
+  });
+
   @override
   Widget build(BuildContext context) {
     var serie = ModalRoute.of(context)?.settings.arguments as Serie;
@@ -211,6 +225,49 @@ class DetalhesSerie extends StatelessWidget {
               ),
           ],
         ),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.all(5),
+            child: FloatingActionButton(
+              heroTag: "rating1",
+              onPressed: () => {},
+              child: const Icon(Icons.star),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(5),
+                child: FloatingActionButton(
+                  heroTag: "like1",
+                  backgroundColor:
+                      foiCurtido(serie) ? Colors.green : Colors.grey,
+                  onPressed: () => {toggleCurtido(serie)},
+                  child: Icon(foiCurtido(serie)
+                      ? Icons.thumb_up
+                      : Icons.thumb_up_alt_outlined),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.all(5),
+                  child: FloatingActionButton(
+                    heroTag: "unlike1",
+                    backgroundColor:
+                        foiNaoCurtido(serie) ? Colors.red : Colors.grey,
+                    onPressed: () => {toggleNaoCurtido(serie)},
+                    child: Icon(foiNaoCurtido(serie)
+                        ? Icons.thumb_down
+                        : Icons.thumb_down_alt_outlined),
+                  )),
+            ],
+          ),
+        ],
       ),
     );
   }
