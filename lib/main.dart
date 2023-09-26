@@ -43,10 +43,9 @@ class _MainAppState extends State<MainApp> {
   _toggleCurtido(Producao producao) {
     setState(() {
       if (_foiCurtido(producao)) {
-        debugPrint(curtidos.length.toString());
         curtidos.remove(producao);
-        debugPrint(curtidos.length.toString());
         naoAvaliados.add(producao);
+        return;
       }
       if (_foiNaoCurtido(producao)) naoCurtidos.remove(producao);
       curtidos.add(producao);
@@ -59,6 +58,7 @@ class _MainAppState extends State<MainApp> {
       if (_foiNaoCurtido(producao)) {
         naoCurtidos.remove(producao);
         naoAvaliados.add(producao);
+        return;
       }
       naoCurtidos.add(producao);
       if (_foiCurtido(producao)) curtidos.remove(producao);

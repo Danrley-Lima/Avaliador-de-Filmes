@@ -7,14 +7,15 @@ import 'pagina_curtidos.dart';
 import 'pagina_nao_curtidos.dart';
 
 class PaginaInicial extends StatefulWidget {
-  final List<dynamic> producoes;
-  final List<dynamic> producoesCurtidas;
-  final List<dynamic> producoesNaoCurtidas;
+  List<dynamic> producoes;
+  List<dynamic> producoesCurtidas;
+  List<dynamic> producoesNaoCurtidas;
   final Function(int) gostei;
   final Function(int) naoGostei;
   final Function(int) removerCurtido;
   final Function(int) removerNaoCurtido;
-  const PaginaInicial(
+
+  PaginaInicial(
       this.gostei, this.naoGostei, this.removerCurtido, this.removerNaoCurtido,
       {super.key,
       required this.producoes,

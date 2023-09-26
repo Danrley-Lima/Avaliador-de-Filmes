@@ -4,7 +4,7 @@ import '../mocks/mock_avaliacao.dart';
 import '../models/avaliacao.dart';
 import '../models/serie.dart';
 
-class DetalhesSerie extends StatelessWidget {
+class DetalhesSerie extends StatefulWidget {
   final Function(Producao) foiCurtido;
   final Function(Producao) foiNaoCurtido;
   final Function(Producao) toggleNaoCurtido;
@@ -18,6 +18,11 @@ class DetalhesSerie extends StatelessWidget {
     required this.toggleNaoCurtido,
   });
 
+  @override
+  State<DetalhesSerie> createState() => _DetalhesSerieState();
+}
+
+class _DetalhesSerieState extends State<DetalhesSerie> {
   @override
   Widget build(BuildContext context) {
     var serie = ModalRoute.of(context)?.settings.arguments as Serie;
@@ -247,9 +252,9 @@ class DetalhesSerie extends StatelessWidget {
                 child: FloatingActionButton(
                   heroTag: "like1",
                   backgroundColor:
-                      foiCurtido(serie) ? Colors.green : Colors.grey,
-                  onPressed: () => {toggleCurtido(serie)},
-                  child: Icon(foiCurtido(serie)
+                      widget.foiCurtido(serie) ? Colors.green : Colors.grey,
+                  onPressed: () => {widget.toggleCurtido(serie)},
+                  child: Icon(widget.foiCurtido(serie)
                       ? Icons.thumb_up
                       : Icons.thumb_up_alt_outlined),
                 ),
@@ -259,9 +264,9 @@ class DetalhesSerie extends StatelessWidget {
                   child: FloatingActionButton(
                     heroTag: "unlike1",
                     backgroundColor:
-                        foiNaoCurtido(serie) ? Colors.red : Colors.grey,
-                    onPressed: () => {toggleNaoCurtido(serie)},
-                    child: Icon(foiNaoCurtido(serie)
+                        widget.foiNaoCurtido(serie) ? Colors.red : Colors.grey,
+                    onPressed: () => {widget.toggleNaoCurtido(serie)},
+                    child: Icon(widget.foiNaoCurtido(serie)
                         ? Icons.thumb_down
                         : Icons.thumb_down_alt_outlined),
                   )),

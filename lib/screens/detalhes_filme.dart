@@ -5,7 +5,7 @@ import 'package:und1_mobile/models/producao.dart';
 
 import '../models/filme.dart';
 
-class DetalhesFilme extends StatelessWidget {
+class DetalhesFilme extends StatefulWidget {
   final Function(Producao) foiCurtido;
   final Function(Producao) foiNaoCurtido;
   final Function(Producao) toggleNaoCurtido;
@@ -17,6 +17,15 @@ class DetalhesFilme extends StatelessWidget {
       required this.foiNaoCurtido,
       required this.toggleCurtido,
       required this.toggleNaoCurtido});
+
+  @override
+  State<DetalhesFilme> createState() => _DetalhesFilmeState();
+}
+
+class _DetalhesFilmeState extends State<DetalhesFilme> {
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -229,9 +238,9 @@ class DetalhesFilme extends StatelessWidget {
                 child: FloatingActionButton(
                   heroTag: "like1",
                   backgroundColor:
-                      foiCurtido(filme) ? Colors.green : Colors.grey,
-                  onPressed: () => {toggleCurtido(filme)},
-                  child: Icon(foiCurtido(filme)
+                      widget.foiCurtido(filme) ? Colors.green : Colors.grey,
+                  onPressed: () => {widget.toggleCurtido(filme)},
+                  child: Icon(widget.foiCurtido(filme)
                       ? Icons.thumb_up
                       : Icons.thumb_up_alt_outlined),
                 ),
@@ -241,9 +250,9 @@ class DetalhesFilme extends StatelessWidget {
                   child: FloatingActionButton(
                     heroTag: "unlike1",
                     backgroundColor:
-                        foiNaoCurtido(filme) ? Colors.red : Colors.grey,
-                    onPressed: () => {toggleNaoCurtido(filme)},
-                    child: Icon(foiNaoCurtido(filme)
+                        widget.foiNaoCurtido(filme) ? Colors.red : Colors.grey,
+                    onPressed: () => {widget.toggleNaoCurtido(filme)},
+                    child: Icon(widget.foiNaoCurtido(filme)
                         ? Icons.thumb_down
                         : Icons.thumb_down_alt_outlined),
                   )),
