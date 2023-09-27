@@ -47,8 +47,11 @@ class _MainAppState extends State<MainApp> {
         naoAvaliados.add(producao);
         return;
       }
-      if (_foiNaoCurtido(producao)) naoCurtidos.remove(producao);
       curtidos.add(producao);
+      if (_foiNaoCurtido(producao)) {
+        naoCurtidos.remove(producao);
+        return;
+      }
       naoAvaliados.remove(producao);
     });
   }
@@ -61,7 +64,10 @@ class _MainAppState extends State<MainApp> {
         return;
       }
       naoCurtidos.add(producao);
-      if (_foiCurtido(producao)) curtidos.remove(producao);
+      if (_foiCurtido(producao)) {
+        curtidos.remove(producao);
+        return;
+      }
       naoAvaliados.remove(producao);
     });
   }

@@ -27,6 +27,20 @@ class _DetalhesFilmeState extends State<DetalhesFilme> {
     super.initState();
   }
 
+  _gostei(Filme filme){
+    setState(() {
+      widget.toggleCurtido(filme);
+      Navigator.of(context).pop();
+    });
+  }
+
+  _naoGostei(Filme filme){
+    setState(() {
+      widget.toggleNaoCurtido(filme);
+      Navigator.of(context).pop();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var filme = ModalRoute.of(context)?.settings.arguments as Filme;
@@ -221,14 +235,14 @@ class _DetalhesFilmeState extends State<DetalhesFilme> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Container(
-            margin: const EdgeInsets.all(5),
-            child: FloatingActionButton(
-              heroTag: "rating1",
-              onPressed: () => {},
-              child: const Icon(Icons.star),
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.all(5),
+          //   child: FloatingActionButton(
+          //     heroTag: "rating1",
+          //     onPressed: () => {},
+          //     child: const Icon(Icons.star),
+          //   ),
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -239,7 +253,7 @@ class _DetalhesFilmeState extends State<DetalhesFilme> {
                   heroTag: "like1",
                   backgroundColor:
                       widget.foiCurtido(filme) ? Colors.green : Colors.grey,
-                  onPressed: () => {widget.toggleCurtido(filme)},
+                  onPressed: () => {_gostei(filme)},
                   child: Icon(widget.foiCurtido(filme)
                       ? Icons.thumb_up
                       : Icons.thumb_up_alt_outlined),
@@ -251,7 +265,7 @@ class _DetalhesFilmeState extends State<DetalhesFilme> {
                     heroTag: "unlike1",
                     backgroundColor:
                         widget.foiNaoCurtido(filme) ? Colors.red : Colors.grey,
-                    onPressed: () => {widget.toggleNaoCurtido(filme)},
+                    onPressed: () => {_naoGostei(filme)},
                     child: Icon(widget.foiNaoCurtido(filme)
                         ? Icons.thumb_down
                         : Icons.thumb_down_alt_outlined),

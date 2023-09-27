@@ -28,6 +28,9 @@ class PaginaInicial extends StatefulWidget {
 
 class _PaginaInicialState extends State<PaginaInicial> {
   int _selectedIndex = 1;
+  late List<dynamic> _naoAvaliados;
+  late List<dynamic> _naoCurtidos;
+  late List<dynamic> _curtidos;
 
   static const TextStyle optionStyle = TextStyle(
     fontSize: 30,
@@ -44,13 +47,16 @@ class _PaginaInicialState extends State<PaginaInicial> {
   @override
   void initState() {
     super.initState();
+    _naoAvaliados = widget.producoes;
+    _naoCurtidos = widget.producoesNaoCurtidas;
+    _curtidos = widget.producoesCurtidas;
     _screens = [
       PaginaNaoCurtidos(widget.removerNaoCurtido,
-          producoes: widget.producoesNaoCurtidas),
+          producoes: _naoCurtidos),
       PaginaFilmesNaoAvaliados(widget.gostei, widget.naoGostei,
-          producoes: widget.producoes),
+          producoes: _naoAvaliados),
       PaginaCurtidos(widget.removerCurtido,
-          producoes: widget.producoesCurtidas),
+          producoes: _curtidos),
     ];
   }
 

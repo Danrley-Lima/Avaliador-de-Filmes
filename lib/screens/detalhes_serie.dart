@@ -34,6 +34,20 @@ class _DetalhesSerieState extends State<DetalhesSerie> {
     ];
     serie.avaliacoes = listaAvaliacoes;
 
+    _gostei(Serie serie){
+      setState(() {
+        widget.toggleCurtido(serie);
+        Navigator.of(context).pop();
+      });
+    }
+
+    _naoGostei(Serie serie){
+      setState(() {
+        widget.toggleNaoCurtido(serie);
+        Navigator.of(context).pop();
+      });
+    }
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(52, 150, 9, 9),
       appBar: AppBar(
@@ -235,14 +249,14 @@ class _DetalhesSerieState extends State<DetalhesSerie> {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Container(
-            margin: const EdgeInsets.all(5),
-            child: FloatingActionButton(
-              heroTag: "rating1",
-              onPressed: () => {},
-              child: const Icon(Icons.star),
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.all(5),
+          //   child: FloatingActionButton(
+          //     heroTag: "rating1",
+          //     onPressed: () => {},
+          //     child: const Icon(Icons.star),
+          //   ),
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -253,7 +267,7 @@ class _DetalhesSerieState extends State<DetalhesSerie> {
                   heroTag: "like1",
                   backgroundColor:
                       widget.foiCurtido(serie) ? Colors.green : Colors.grey,
-                  onPressed: () => {widget.toggleCurtido(serie)},
+                  onPressed: () => {_gostei(serie)},
                   child: Icon(widget.foiCurtido(serie)
                       ? Icons.thumb_up
                       : Icons.thumb_up_alt_outlined),
@@ -265,7 +279,7 @@ class _DetalhesSerieState extends State<DetalhesSerie> {
                     heroTag: "unlike1",
                     backgroundColor:
                         widget.foiNaoCurtido(serie) ? Colors.red : Colors.grey,
-                    onPressed: () => {widget.toggleNaoCurtido(serie)},
+                    onPressed: () => {_naoGostei(serie)},
                     child: Icon(widget.foiNaoCurtido(serie)
                         ? Icons.thumb_down
                         : Icons.thumb_down_alt_outlined),
