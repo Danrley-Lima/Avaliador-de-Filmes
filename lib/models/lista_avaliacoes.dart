@@ -11,6 +11,8 @@ class ListaAvaliacoes extends ChangeNotifier {
 
   set avaliacoes(List<Avaliacao> avaliacoes) => _avaliacoes = avaliacoes;
 
+  List<Avaliacao> get avaliacoes => _avaliacoes;
+
   adicionar(Avaliacao avaliacao) {
     if (_avaliacoes
         .where((element) =>

@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:und1_mobile/components/modal_confirmacao.dart';
+import 'package:und1_mobile/configs/app_settings.dart';
 import 'package:und1_mobile/models/usuario.dart';
 import 'package:und1_mobile/styles.dart';
 import 'package:und1_mobile/utils/app_routes.dart';
@@ -17,6 +18,7 @@ class SettingPage extends StatelessWidget {
 
     logOut() async {
       await Usuario.signOut();
+      AppSettings.logout();
       Navigator.pushNamedAndRemoveUntil(
         context,
         AppRoutes.LOGIN,

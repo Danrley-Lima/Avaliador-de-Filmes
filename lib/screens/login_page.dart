@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:und1_mobile/configs/app_settings.dart';
 import 'package:und1_mobile/models/lista_avaliacoes.dart';
 import 'package:und1_mobile/models/usuario.dart';
 import 'package:und1_mobile/utils/app_routes.dart';
@@ -8,7 +9,9 @@ import '../models/avaliacao_model.dart';
 import '../styles.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final ListaAvaliacoes listaAvaliacoes;
+
+  const LoginPage({super.key, required this.listaAvaliacoes});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,6 +21,17 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usuarioController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
   var _senhaVisivel = false;
+
+  void initState() {
+    super.initState();
+
+    // Future.wait([
+    //   AppSettings.isAuth(),
+    // ]).then((value) => value[0]
+    //     ? Navigator.of(context)
+    //         .pushReplacementNamed(AppRoutes.HOME, arguments: listas)
+    //     : Navigator.of(context).pushReplacementNamed(AppRoutes.LOGIN));
+  }
 
   Future<void> _showLoginErrorDialog(BuildContext context) async {
     return showDialog(
@@ -52,7 +66,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     var cores = Theme.of(context).colorScheme;
 
-    var listaAvaliacoes = context.watch<ListaAvaliacoes>();
     //var producoes = Provider.of(context).watch<ProducaoModel>();
     ButtonStyle buttonStyle = ButtonStyle(
       padding: const MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.all(12)),
@@ -140,42 +153,37 @@ class _LoginPageState extends State<LoginPage> {
                     height: 16,
                   )),
                   ElevatedButton(
-                      onPressed: () async {
-                        String email = _usuarioController.text;
-                        String senha = _senhaController.text;
+                    onPressed: () async {
+                      String email = _usuarioController.text;
+                      String senha = _senhaController.text;
 
-                        try {
-                          Usuario? usuarioLogado =
-                              await Usuario.login(email, senha);
-                          if (usuarioLogado != null) {
-                            if (!context.mounted) {
-                              return;
-                            }
-
-                            // Passei o usuário pra frente, vai que precisa em outro lugar
-                            Map<String, List<dynamic>> listas =
-                                await Usuario.carregarListas();
-                            List<Avaliacao> avaliacoes =
-                                await Avaliacao.carregarAvaliacoes();
-                            listaAvaliacoes.avaliacoes = avaliacoes;
-                            Map<String, dynamic> argument = {'listas': listas};
-                            if (context.mounted) {
-                              Navigator.of(context).pushReplacementNamed(
-                                AppRoutes.HOME,
-                                arguments: argument,
-                              );
-                            }
+                      try {
+                        Usuario? usuarioLogado =
+                            await Usuario.login(email, senha);
+                        if (usuarioLogado != null) {
+                          if (!context.mounted) {
+                            return;
                           }
-                        } catch (e) {
-                          _showLoginErrorDialog(context);
+
+                          // Carregar dados e navegar para a próxima tela
+                          Map<String, List<dynamic>> listas =
+                              await Usuario.carregarListas();
+                          List<Avaliacao> avaliacoes =
+                              await Avaliacao.carregarAvaliacoes();
+                          widget.listaAvaliacoes.avaliacoes = avaliacoes;
+
+                          Navigator.of(context).pushReplacementNamed(
+                            AppRoutes.HOME,
+                            arguments: {'listas': listas},
+                          );
                         }
-                      },
-                      style: buttonStyle,
-                      child: const Text(
-                        'Entrar',
-                      )),
-                  const SizedBox(
-                    height: 16,
+                      } catch (e) {
+                        // Tratar qualquer erro que ocorra durante o login
+                        _showLoginErrorDialog(context);
+                      }
+                    },
+                    style: buttonStyle,
+                    child: const Text('Entrar'),
                   ),
                   ElevatedButton(
                     onPressed: () {
