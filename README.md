@@ -12,7 +12,7 @@
 
 ## 📝 Resumo
 
-Projeto desenvolvido durante a disciplina de "DESENVOLVIMENTO DE SISTEMAS PARA DISPOSITIVOS MÓVEIS" na UFRN, no semestre de 2023.2. O aplicativo móvel em Flutter utiliza o Firebase como persistência de dados. A principal funcionalidade do aplicativo é permitir que os usuários avaliem e façam comentários aos filmes consultados na API The Movie Database (TMDb).
+O projeto Avaliador de Filmes é um aplicativo mobile desenvolvido em Flutter, como parte da disciplina "Desenvolvimento de Sistemas para Dispositivos Móveis" na UFRN. O aplicativo permite aos usuários buscar filmes via a API do The Movie Database (TMDb), avaliar e comentar filmes. Para persistência de dados, o projeto utiliza o Firebase, garantindo armazenamento e sincronização dos dados dos usuários. O foco do projeto é proporcionar uma interface intuitiva e funcional para o usuário, permitindo fácil interação com o catálogo de filmes e suas respectivas avaliações.
 
 ##  🛠️  Tecnologias Utilizadas
 
